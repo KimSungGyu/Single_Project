@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -16,12 +14,12 @@
       margin-bottom: 0;
       border-radius: 0;
     }
+    .jumbotron{
+    	padding-top: 0;
+    	padding-bottom: 0;
+    }
     
     /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
   </style>
 </head>
 <body>
@@ -51,9 +49,6 @@
 </nav>
 
 <div class="jumbotron">
-  <div class="container text-center">
-    <h1>My Portfolio</h1>      
-    <p>Some text that represents "Me"...</p>
-  </div>
+  <img src="resources/img/Banner.png" width="100%">
 </div>
   
