@@ -19,10 +19,10 @@
     	padding-bottom: 0;
     }
     .image-area {
-	  height: 150px; /* 원하는 높이로 변경 */
+	  height: 200px; /* 원하는 높이로 변경 */
 	}
 	img {
-	  height: 150px; /* 원하는 높이로 변경 */
+	  height: 200px; /* 원하는 높이로 변경 */
 	}
     
   </style>
