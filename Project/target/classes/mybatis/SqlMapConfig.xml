@@ -4,5 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
+	<typeAliases>
+		<typeAlias type="member.model.MemberBean" alias="MemberBean"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/member.xml"/>
+	</mappers>
 </configuration>
