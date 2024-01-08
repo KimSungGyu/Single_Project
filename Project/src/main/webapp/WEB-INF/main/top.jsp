@@ -19,13 +19,12 @@
     	padding-bottom: 0;
     }
     .image-area {
-	  height: 140px; /* 원하는 높이로 변경 */
+	  height: 150px; /* 원하는 높이로 변경 */
 	}
 	img {
-	  height: 140px; /* 원하는 높이로 변경 */
+	  height: 150px; /* 원하는 높이로 변경 */
 	}
     
-    /* Add a gray background color and some padding to the footer */
   </style>
 </head>
 <body>
