@@ -30,7 +30,6 @@
  		right: 0;
  		bottom: 0;
  		left: 0;
- 		background-image: url('../../images/background/cc.png');
  		background-repeat: no-repeat;
  		background-attachment: fixed;
  		background-size: cover;
@@ -51,6 +50,19 @@
       font-weight: bold;
       font-size: 9pt;
    }
+   .mybutton {
+        background-color: gray; /* 버튼 배경색 */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px; /* 버튼 모서리 둥글게 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    }
 </style>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -132,7 +144,7 @@ function repasswordCheck(){
 }
 
 function pwcheck(){
-pvalue = $("input[name=password").val();
+pvalue = $("input[name=password]").val();
 	
 	var regexp = /^[a-z0-9]{8,16}$/;
 	
@@ -332,9 +344,9 @@ $(document).ready(function() {
 	    <hr>
 	    <div class="form-group">        
 	      <div class="col-sm-offset-2 col-sm-10">
-	        <input type="submit" id="sub" class="btn btn-default" value="가입하기">&nbsp;
+	        <input type="submit" id="sub" class="mybutton" value="가입하기">&nbsp;
 	        <a href="login.member">
-	        	<input type="button" class="btn btn-default" value="취소">
+	        	<input type="button" class="mybutton" value="취소">
 	        </a>
 	      </div>
 	    </div>

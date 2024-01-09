@@ -50,13 +50,14 @@
         <li class="active"><a href="view.main">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Gallery</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">상품문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${empty loginInfo}">
         	<li><a href="login.member"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </c:if>
         <c:if test="${not empty loginInfo}">
+        	<li><a href="mypage.member"><span class="glyphicon glyphicon-user"></span> MyPage</a></li>
         	<li><a href="javascript:goLogout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </c:if>
       </ul>

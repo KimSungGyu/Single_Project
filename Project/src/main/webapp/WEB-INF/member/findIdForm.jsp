@@ -36,6 +36,19 @@
   	.form-horizontal{
   		padding-left: 300px;
   	}
+  	.mybutton {
+        background-color: gray; /* 버튼 배경색 */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px; /* 버튼 모서리 둥글게 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    }
 </style>
 <script type="text/javascript">
 	function findidcheck(){
@@ -71,9 +84,9 @@
 	    <hr>
 	    <div class="form-group">        
 	      <div class="col-sm-offset-2 col-sm-10">
-	        <input type="submit" class="btn btn-default" value="아이디 찾기">&nbsp;
+	        <input type="submit" class="mybutton" value="아이디 찾기">&nbsp;
 	        <a href="login.member">
-	        	<input type="button" class="btn btn-default" value="취소">
+	        	<input type="button" class="mybutton" value="취소">
 	        </a>
 	      </div>
 	    </div>
