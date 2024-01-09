@@ -11,7 +11,6 @@
 		display: flex;
 	}
 	.container{
-		background-image: url("../../images/man.jpg");
 		background-repeat: no-repeat;
 		background-position: right;
 		background-size: 350px;
@@ -29,7 +28,6 @@
   		right: 0;
   		bottom: 0;
   		left: 0;
-  		background-image: url('images/background/찾기2.jpeg');
   		background-size: cover;
   		background-attachment: fixed;
   		opacity: 0.2;
@@ -44,29 +42,44 @@
   		padding-left: 300px;
   	}
 </style>
+<script type="text/javascript">
+	function findpwcheck(){
+		if(f.member_id.value == ""){
+			alert('아이디를 입력하세요.');
+			return false;
+		}
+		if(f.phone.value == ""){
+			alert('휴대폰번호를 입력하세요.');
+			return false;
+		}
+		if(f.email.value == ""){
+			alert('이메일주소를 입력하세요.');
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="background-overlay"></div>
 	<div class="container" style="margin-top: 0;">
 	  <h2 align="center">비밀번호 찾기</h2><hr>
-	  <form class="form-horizontal" action="findpwPro.jsp" method="post" onSubmit="return findpwcheck()">
+	  <form name="f" class="form-horizontal" action="findPw.member" method="post" onSubmit="return findpwcheck()">
 	    <div class="form-group">
-	      <label class="control-label col-sm-2" for="id">아이디:</label>
+	      <label class="control-label col-sm-2" for="member_id">아이디:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter id" name="id">&nbsp;
+	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter id" name="member_id">&nbsp;
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label class="control-label col-sm-2" for="name">이름:</label>
+	      <label class="control-label col-sm-2" for="phone">휴대폰번호:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px; opacity: 1;" placeholder="Enter name" name="name">
+	        <input type="text" class="form-control" style="width:200px; opacity: 1;" maxlength="11" placeholder="Enter phone" name="phone">
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label class="control-label col-sm-2" for="ssn">주민등록번호:</label>
+	      <label class="control-label col-sm-2" for="ssn">이메일주소:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px;" maxlength="6" placeholder="Enter ssn1" name="ssn1">&nbsp; _ &nbsp;
-	        <input type="text" class="form-control" style="width:200px;" maxlength="7" placeholder="Enter ssn2" name="ssn2">
+	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter email" name="email">
 	      </div>
 	    </div>
 	    <hr>

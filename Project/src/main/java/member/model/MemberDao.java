@@ -37,4 +37,9 @@ public class MemberDao {
 		MemberBean memberBean = sqlSessionTemplate.selectOne(namespace + ".getInfoByNameAndPhone", map);
 		return memberBean;
 	}
+
+	public MemberBean findwithId(String member_id) {
+		MemberBean memberBean = sqlSessionTemplate.selectOne(namespace + ".findwithId", member_id);
+		return memberBean;
+	}
 }

@@ -19,4 +19,8 @@
 	<select id="getInfoByNameAndPhone" resultType="member.model.MemberBean">
 		select * from member where name=#{name} and phone=#{phone}
 	</select>
+	
+	<select id="findwithId" resultType="member.model.MemberBean">
+		select * from member where member_id=#{member_id}
+	</select>
 </mapper> 
