@@ -17,6 +17,7 @@
     .jumbotron{
     	padding-top: 0;
     	padding-bottom: 0;
+    	margin-bottom: 0;
     }
     .image-area {
 	  height: 200px; /* 원하는 높이로 변경 */

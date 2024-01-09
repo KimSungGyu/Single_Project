@@ -17,6 +17,8 @@ public class MemberBean {
 	private String name;
 	@NotEmpty(message = "비밀번호를 입력하세요")
 	private String password;
+	@NotEmpty(message = "비밀번호확인을 입력하세요")
+	private String repassword;
 	@NotEmpty(message = "전화번호를 입력하세요")
 	@Pattern(regexp = "^[0-9]+$", message = "숫자만 입력가능")
 	private String phone;
@@ -27,6 +29,13 @@ public class MemberBean {
 	@NotEmpty(message = "상세주소를 입력하세요")
 	private String address2;
 	
+	
+	public String getRepassword() {
+		return repassword;
+	}
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

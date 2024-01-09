@@ -18,12 +18,12 @@
 		background-size: 350px;
 	}
 	body{
-	 		position: static;
-	 		width: 100%;
-	 		height: 100%;
-	 		margin: 0;
-	 		padding: 0;
-	 	}
+ 		position: static;
+ 		width: 100%;
+ 		height: 100%;
+ 		margin: 0;
+ 		padding: 0;
+ 	}
  	.background-overlay{
  		position: absolute;
  		top: 0;
@@ -51,7 +51,9 @@
       font-weight: bold;
       font-size: 9pt;
    }
- </style>
+</style>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
 <script type="text/javascript">
 var cert = false;
@@ -106,6 +108,58 @@ function verify() {
     }
 }
 
+function searchAddress(){
+	new daum.Postcode({
+        oncomplete: function(data) {
+            document.getElementById("address1").value = data.address;
+        }
+    }).open();
+}
+
+function isValidEmail(email) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+ 
+function repasswordCheck(){
+	if($("input[name=password]").val() == $("input[name=repassword]").val()){
+		$("#pwmessage").html("<font color = blue>비밀번호 일치</font>");
+		pwuse = "same";
+	} else {
+		$("#pwmessage").html("<font color = red>비밀번호 불일치</font>");
+		pwuse = "nosame";
+	}
+}
+
+function pwcheck(){
+pvalue = $("input[name=password").val();
+	
+	var regexp = /^[a-z0-9]{8,16}$/;
+	
+	if(pvalue.search(regexp) == -1){
+		$("#pwcheckmessage").html("<font color = red>길이는 8~16사이여야 합니다.</font>");
+		pwerror = "error";
+		setTimeout(function(){               
+			f.password.select();             
+		}, 10);
+		return false;
+	}
+	
+	var chk_eng = pvalue.search(/[a-z]/i);
+	var chk_num = pvalue.search(/[0-9]/);
+	if(chk_eng<0 || chk_num<0){
+		$("#pwcheckmessage").html("<font color = red>영문 소문자, 숫자 조합이 아닙니다.</font>");
+		pwerror = "error";
+		setTimeout(function(){               
+			f.password.select();             
+		}, 10);
+		return false;
+	} else {
+		$("#pwcheckmessage").html("<font color = blue>올바른 형식</font>");
+		pwerror = "noterror";
+	}
+}
+
 $(document).ready(function() {
     $('#member_id').keyup(function(){ // 아이디 중복체크
 
@@ -158,9 +212,14 @@ $(document).ready(function() {
         	alert('이미 사용중인 닉네임입니다.');
         	return false;
         	
+        }else if(pwerror == "error"){
+        	alert('비밀번호 형식이 맞지않습니다.');
+        	return false;
+        	
         }else if(pwuse == "nosame"){
         	alert('비밀번호가 일치하지 않습니다');
         	return false;
+        	
         }else if(!cert){
         	alert('인증번호를 받으세요');
         	return false;
@@ -183,25 +242,12 @@ $(document).ready(function() {
     });
     
  });
-function isValidEmail(email) {
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
- 
-function repasswordCheck(){
-	if($("input[name=password]").val() == $("input[name=repassword]").val()){
-		$("#pwmessage").html("<font color = blue>비밀번호 일치</font>");
-		pwuse = "same";
-	} else {
-		$("#pwmessage").html("<font color = red>비밀번호 불일치</font>");
-		pwuse = "nosame";
-	}
-}
- </script>
+
+</script>
 </head>
 <body>
 	<div class="background-overlay"></div>
-	<div class="container" style="margin-top: 0;">
+	<div class="container" style="margin-top: 0; margin: auto;">
 	  <h2 align="center">회원가입</h2><hr>
 	  <form:form commandName="memberBean" class="form-horizontal" action="register.member" method="post">
 	  	<div class="form-group">
@@ -230,22 +276,39 @@ function repasswordCheck(){
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="password">비밀번호:</label>
 	      <div class="col-sm-10">
-	        <input type="password" class="form-control" style="width:200px;" placeholder="Enter password" name="password" value="${memberBean.password}">
+	        <input type="password" class="form-control" style="width:200px;" placeholder="영문 소문자 + 숫자 8~16자리" name="password" value="${memberBean.password}" onkeyup="pwcheck()">
+	      	<span id="pwcheckmessage" ></span>
 	      	<form:errors cssClass="err" path="password"/>
 	      </div>
 	    </div>
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="repassword">비밀번호 확인:</label>
 	      <div class="col-sm-10">
-	        <input type="password" class="form-control" style="width:200px;" placeholder="Enter repassword" name="repassword" onkeyup="repasswordCheck()">
+	        <input type="password" class="form-control" style="width:200px;" placeholder="Enter repassword" name="repassword" value="${memberBean.repassword}" onkeyup="repasswordCheck()">
 	        &nbsp;
 	        <span id="pwmessage" ></span>
+	        <form:errors cssClass="err" path="repassword"/>
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="address1">주소:</label>
+	      <div class="col-sm-10">
+	        <input type="text" class="form-control" style="width:200px;" placeholder="주소를 입력하세요" id="address1" name="address1" value="${memberBean.address1}">&nbsp;
+	        <button type = "button" class="btn btn-dark" onclick = "searchAddress()">주소찾기</button>
+	      	<form:errors cssClass="err" path="address1"/>
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="address2">상세주소:</label>
+	      <div class="col-sm-10">
+	        <input type="text" class="form-control" style="width:200px;" placeholder="상세주소를 입력하세요" name="address2" value="${memberBean.address2}">
+	      	<form:errors cssClass="err" path="address2"/>
 	      </div>
 	    </div>
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="ssn">핸드폰 번호:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter phone" name="phone" value="${memberBean.phone}">&nbsp;
+	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter phone" name="phone" size="11" value="${memberBean.phone}">&nbsp;
 	        <input type = "button" class="btn btn-dark" id="phoneVerificationButton" value = "인증번호 요청" onclick = "sendSMS($('#phone').val())">
 	      	<form:errors cssClass="err" path="phone"/>
 	      </div>
@@ -253,7 +316,7 @@ function repasswordCheck(){
 	    <div class="form-group" style="margin-left: 4px;">
 		    <div class="col-sm-10" id="verificationSection" style="display: none;">
 	          <!-- 이곳에 텍스트 상자 및 기타 요소 추가 -->
-	          <label for="verificationCode" class="control-label col-sm-2">인증번호 : </label>&nbsp;
+	          <label for="verificationCode" class="control-label col-sm-2">인증번호:</label>&nbsp;
 	          <input type="text" class="form-control" style="width:200px; margin-left: 9px;" id="verificationCode" name="verificationCode">&nbsp;
 	          <input type="button" class="btn btn-dark" value="인증하기" onClick="verify()">
 	        </div>
