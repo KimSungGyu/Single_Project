@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ include file="../common/common.jsp" %>
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -27,6 +27,11 @@
 	}
     
   </style>
+  <script type="text/javascript">
+	function goLogout(){
+		location.href="logout.jsp";
+	}
+  </script>
 </head>
 <body>
 
@@ -48,7 +53,12 @@
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.member"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      	<c:if test="${empty loginInfo}">
+        	<li><a href="login.member"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </c:if>
+        <c:if test="${not empty loginInfo}">
+        	<li><a href="javascript:goLogout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </c:if>
       </ul>
     </div>
   </div>
