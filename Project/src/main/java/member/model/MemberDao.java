@@ -1,5 +1,8 @@
 package member.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,5 +31,10 @@ public class MemberDao {
 
 	public void memberRegister(MemberBean mb) {
 		sqlSessionTemplate.insert(namespace + ".memberRegister", mb);
+	}
+
+	public MemberBean getInfoByNameAndPhone(Map<String,String> map) {
+		MemberBean memberBean = sqlSessionTemplate.selectOne(namespace + ".getInfoByNameAndPhone", map);
+		return memberBean;
 	}
 }

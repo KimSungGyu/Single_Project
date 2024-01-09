@@ -23,7 +23,6 @@
   		right: 0;
   		bottom: 0;
   		left: 0;
-  		background-image: url('images/background/찾기1.jpeg');
   		background-size: cover;
   		background-attachment: fixed;
   		opacity: 0.2;
@@ -41,9 +40,9 @@
 </head>
 <body>
 	<div class="background-overlay"></div>
-	<div class="container" style="margin-top: 0;">
+	<div class="container" style="margin-top: 0; margin: auto;">
 	  <h2 align="center">아이디 찾기</h2><hr>
-	  <form class="form-horizontal" action="findidPro.jsp" method="post" onsubmit="return findidcheck()">
+	  <form class="form-horizontal" action="findId.member" method="post">
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="name">이름:</label>
 	      <div class="col-sm-10">
@@ -51,10 +50,10 @@
 	      </div>
 	    </div>
 	    <div class="form-group">
-	      <label class="control-label col-sm-2" for="ssn">주민등록번호:</label>
+	      <label class="control-label col-sm-2" for="phone">휴대폰번호:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter ssn1" maxlength="6" name="ssn1">&nbsp; _ &nbsp;
-	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter ssn2" maxlength="7" name="ssn2">
+	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter phone" maxlength="11" name="phone">
+	        
 	      </div>
 	    </div>
 	    <hr>
