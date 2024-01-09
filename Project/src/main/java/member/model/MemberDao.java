@@ -42,4 +42,5 @@ public class MemberDao {
 		MemberBean memberBean = sqlSessionTemplate.selectOne(namespace + ".findwithId", member_id);
 		return memberBean;
 	}
+
 }
