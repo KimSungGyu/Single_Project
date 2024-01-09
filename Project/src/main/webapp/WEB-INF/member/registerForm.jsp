@@ -320,7 +320,7 @@ $(document).ready(function() {
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="ssn">핸드폰 번호:</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" style="width:200px;" placeholder="Enter phone" name="phone" size="11" value="${memberBean.phone}">&nbsp;
+	        <input type="text" class="form-control" style="width:200px;" placeholder="숫자만 입력해주세요." name="phone" maxlength="11" value="${memberBean.phone}">&nbsp;
 	        <input type = "button" class="btn btn-dark" id="phoneVerificationButton" value = "인증번호 요청" onclick = "sendSMS($('#phone').val())">
 	      	<form:errors cssClass="err" path="phone"/>
 	      </div>

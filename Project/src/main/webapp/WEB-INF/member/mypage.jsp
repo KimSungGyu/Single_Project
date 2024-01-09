@@ -12,7 +12,6 @@
     }
 
     td {
-        text-align: center;
         padding: 10px;
     }
 	body, html {
@@ -57,8 +56,97 @@
     }
 </style>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/jquery.js"></script>
-<script>
+<script type="text/javascript">
+var cert = false;
+var registercheck = false;
+
+function sendSMS(phone) {
+    alert('인증번호를 요청했습니다.');
+    // Ajax 요청
+    $.ajax({
+        type: "GET",
+        url: "sendSms.member?phone="+phone,
+        data: { phone: phone },
+        success: function(response) {
+            // 서버에서 받은 응답(response)을 처리
+            console.log(response);
+
+            // 이 부분에서 필요한 로직을 추가하여 처리 결과를 사용자에게 보여줄 수 있습니다.
+            document.getElementById('verificationSection').style.display = 'flex';
+            // 받은 랜덤 값(response)을 전역 변수에 저장
+            window.randomValue = response;
+			cert = true;
+        },
+        error: function(error) {
+            console.error(error);
+            // 에러가 발생했을 경우에 대한 처리를 추가할 수 있습니다.
+            alert('전화번호가 일치하지 않습니다.');
+        }
+    });
+}
+
+function verify() {
+    var verificationCode = document.getElementById('verificationCode').value;
+
+    // 인증번호가 비어 있으면 알림창을 띄우고 함수를 종료
+    if (verificationCode.trim() === '') {
+        alert('인증번호를 입력하세요.');
+        return;
+    }
+
+    // 사용자가 입력한 값
+    var userInput = document.getElementById('verificationCode').value;
+
+    // 전역 변수에 저장된 랜덤 값과 사용자가 입력한 값 비교
+    if (userInput == window.randomValue) {
+        // 일치할 경우, 여기에 원하는 동작 추가
+        registercheck = true;
+        alert('인증 성공!');
+        
+    } else {
+        // 불일치할 경우, 여기에 원하는 동작 추가
+        alert('인증번호가 일치하지 않습니다. 다시 시도하세요.');
+    }
+}
+
+function pwcheck(){
+	pvalue = $("input[name=password]").val();
+	var regexp = /^[a-z0-9]{8,16}$/;
+	
+	if(pvalue.search(regexp) == -1){
+		$("#pwcheckmessage").html("<font color = red>길이는 8~16사이여야 합니다.</font>");
+		pwerror = "error";
+		setTimeout(function(){               
+			f.password.select();
+		}, 10);
+		return false;
+	}
+	
+	var chk_eng = pvalue.search(/[a-z]/i);
+	var chk_num = pvalue.search(/[0-9]/);
+	if(chk_eng<0 || chk_num<0){
+		$("#pwcheckmessage").html("<font color = red>영문 소문자, 숫자 조합이 아닙니다.</font>");
+		pwerror = "error";
+		setTimeout(function(){
+			f.password.select();
+		}, 10);
+		return false;
+	} else {
+		$("#pwcheckmessage").html("<font color = blue>올바른 형식</font>");
+		pwerror = "noterror";
+	}
+}
+
+function searchAddress(){
+	new daum.Postcode({
+        oncomplete: function(data) {
+            document.getElementById("address1").value = data.address;
+        }
+    }).open();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("defaultOpen").click();
 });
@@ -77,32 +165,9 @@ function openPage(pageName, elmnt, color) {
     elmnt.style.backgroundColor = color;
 }
 
-function pwcheck(){
-	pvalue = $("input[name=password]").val();
-	var regexp = /^[a-z0-9]{8,16}$/;
-	
-	if(pvalue.search(regexp) == -1){
-		$("#pwcheckmessage").html("<font color = red>길이는 8~16사이여야 합니다.</font>");
-		pwerror = "error";
-		setTimeout(function(){               
-			f.password.select();             
-		}, 10);
-		return false;
-	}
-	
-	var chk_eng = pvalue.search(/[a-z]/i);
-	var chk_num = pvalue.search(/[0-9]/);
-	if(chk_eng<0 || chk_num<0){
-		$("#pwcheckmessage").html("<font color = red>영문 소문자, 숫자 조합이 아닙니다.</font>");
-		pwerror = "error";
-		setTimeout(function(){               
-			f.password.select();             
-		}, 10);
-		return false;
-	} else {
-		$("#pwcheckmessage").html("<font color = blue>올바른 형식</font>");
-		pwerror = "noterror";
-	}
+function isValidEmail(email) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 $(document).ready(function() {
@@ -225,25 +290,21 @@ $(document).ready(function() {
 		  	<th>비밀번호</th>
 		  	<td>
 		  		<input type="password" id="password" name="password" size="9" value="${loginInfo.password}" onkeyup="pwcheck()">
-		  		<span id="pwcheckmessage" style = "display: none;"></span>
+		  		<span id="pwcheckmessage"></span>
 			</td>
-		  </tr>
-		  <tr>
-		  	<th>휴대폰번호</th>
-		  	<td>
-		  		<input type="text" name="phone" maxlength="11" size="9" value="${loginInfo.phone}">
-		  	</td>
 		  </tr>
 		  <tr>
 		  	<th>이메일</th>
 		  	<td>
-				<input type="text" name="email" size="17" value="${loginInfo.email}">
+				<input type="text" id="email" name="email" size="17" value="${loginInfo.email}">
+				<span id="emailmessage"></span>
 			</td>
 		  </tr>
 		  <tr>
 		  	<th>주소</th>
 		  	<td>
-		  		<input type="text" name="address1" size="9" value="${loginInfo.address1}">
+		  		<input type="text" id="address1" name="address1" size="9" value="${loginInfo.address1}">&nbsp;
+		  		<button type = "button" class="btn btn-dark" onclick = "searchAddress()">주소찾기</button>
 		  	</td>
 		  </tr>
 		  <tr>
@@ -253,7 +314,21 @@ $(document).ready(function() {
 		  	</td>
 		  </tr>
 		  <tr>
-		  	<td colspan="2">
+		  	<th>휴대폰번호</th>
+		  	<td>
+		  		<input type="text" name="phone" maxlength="11" size="9" value="${loginInfo.phone}">
+		  		<input type = "button" class="btn btn-dark" id="phoneVerificationButton" value = "인증번호 요청" onclick = "sendSMS($('#phone').val())">
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<th>휴대폰인증</th>
+		  	<td>
+		  	  <input type="text" id="verificationCode" name="verificationCode" size="9">&nbsp;
+	          <input type="button" class="btn btn-dark" value="인증하기" onClick="verify()">
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2" align="center">
 		  		<input type="submit" id="sub" class="mybutton" value="수정">
 		  		<input type="button" class="mybutton" value="취소">
 		  	</td>
