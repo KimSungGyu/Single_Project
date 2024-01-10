@@ -60,7 +60,9 @@
 <script type="text/javascript" src="resources/js/jquery.js"></script>
 <script type="text/javascript">
 var cert = false;
+var delcert = false;
 var registercheck = false;
+var delregistercheck = false;
 
 function sendSMS(phone) {
     alert('인증번호를 요청했습니다.');
@@ -73,8 +75,6 @@ function sendSMS(phone) {
             // 서버에서 받은 응답(response)을 처리
             console.log(response);
 
-            // 이 부분에서 필요한 로직을 추가하여 처리 결과를 사용자에게 보여줄 수 있습니다.
-            document.getElementById('verificationSection').style.display = 'flex';
             // 받은 랜덤 값(response)을 전역 변수에 저장
             window.randomValue = response;
 			cert = true;
@@ -139,6 +139,29 @@ function pwcheck(){
 	}
 }
 
+function updateCheck(){
+	if(f.nickname.value == ""){
+		alert('닉네임을 입력하세요.');
+		return false;
+	}
+	if(f.password.value == ""){
+		alert('비밀번호를 입력하세요.');
+		return false;
+	}
+	if(f.email.value == ""){
+		alert('이메일을 입력하세요.');
+		return false;
+	}
+	if(f.address1.value == ""){
+		alert('주소를 입력하세요.');
+		return false;
+	}
+	if(f.address2.value == ""){
+		alert('상세주소를 입력하세요.');
+		return false;
+	}
+}
+
 function searchAddress(){
 	new daum.Postcode({
         oncomplete: function(data) {
@@ -193,6 +216,15 @@ $(document).ready(function() {
     });
     
     $('#sub').click(function(event){ // submit 클릭
+		if(!cert){
+        	alert('인증번호를 받으세요');
+        	return false;
+        	
+        }
+		if(!registercheck){
+        	alert('인증번호를 확인하세요');
+        	return false;
+        }
         if(nickuse == "impossible"){
         	alert('이미 사용중인 닉네임입니다.');
         	return false;
@@ -201,11 +233,16 @@ $(document).ready(function() {
         	alert('비밀번호 형식이 맞지않습니다.');
         	return false;
         	
-        }else if(!cert){
+        }
+    });
+    
+    $('#delsub').click(function(event){ // submit 클릭
+		if(!delcert){
         	alert('인증번호를 받으세요');
         	return false;
         	
-        }else if(!registercheck){
+        }
+		if(!delregistercheck){
         	alert('인증번호를 확인하세요');
         	return false;
         }
@@ -269,7 +306,9 @@ $(document).ready(function() {
 	</div>
 	
 	<div id="Tab2" class="tabcontent">
-	  <form action="update.member" method="post">
+	  <form name="f" action="update.member" method="post" onsubmit="return updateCheck()">
+	  	<input type="hidden" name="member_id" value="${loginInfo.member_id}">
+	  	<input type="hidden" name="name" value="${loginInfo.name}">
 	  	<table class="table table-bordered border-success" style="width: 600px; margin: auto;">
 		  <tr>
 		  	<th>아이디</th>
@@ -316,7 +355,7 @@ $(document).ready(function() {
 		  <tr>
 		  	<th>휴대폰번호</th>
 		  	<td>
-		  		<input type="text" name="phone" maxlength="11" size="9" value="${loginInfo.phone}">
+		  		<input type="text" id="phone" name="phone" maxlength="11" size="9" value="${loginInfo.phone}">
 		  		<input type = "button" class="btn btn-dark" id="phoneVerificationButton" value = "인증번호 요청" onclick = "sendSMS($('#phone').val())">
 		  	</td>
 		  </tr>
@@ -342,7 +381,43 @@ $(document).ready(function() {
 	</div>
 	
 	<div id="Tab4" class="tabcontent">
-	  <h3>About</h3>
-	  <p>Who we are and what we do.</p>
+	  <form action="delete.member" method="post">
+	  	<input type="hidden" name="member_id" value="${loginInfo.member_id}">
+	  	<input type="hidden" name="name" value="${loginInfo.name}">
+	  	<table class="table table-bordered border-success" style="width: 600px; margin: auto;">
+		  <tr>
+		  	<th>아이디</th>
+		  	<td>${loginInfo.member_id}</td>
+		  </tr>
+		  <tr>
+		  	<th>닉네임</th>
+		  	<td>${loginInfo.nickname}</td>
+		  </tr>
+		  <tr>
+		  	<th>이름</th>
+		  	<td>${loginInfo.name}</td>
+		  </tr>
+		  <tr>
+		  	<th>휴대폰번호</th>
+		  	<td>
+		  		<input type="text" id="phone" name="phone" maxlength="11" size="9" value="${loginInfo.phone}">
+		  		<input type = "button" class="btn btn-dark" id="phoneVerificationButton" value = "인증번호 요청" onclick = "sendSMS($('#phone').val())">
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<th>휴대폰인증</th>
+		  	<td>
+		  	  <input type="text" id="verificationCode" name="verificationCode" size="9">&nbsp;
+	          <input type="button" class="btn btn-dark" value="인증하기" onClick="verify()">
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2" align="center">
+		  		<input type="submit" id="delsub" class="mybutton" value="회원탈퇴">
+		  		<input type="button" class="mybutton" value="취소">
+		  	</td>
+		  </tr>
+	   </table>
+	  </form>
 	</div>
 </body>

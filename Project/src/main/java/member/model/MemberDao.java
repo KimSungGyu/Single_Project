@@ -42,4 +42,8 @@ public class MemberDao {
 		return memberBean;
 	}
 
+	public void memberUpdate(MemberBean mb) {
+		sqlSessionTemplate.update(namespace + ".memberUpdate", mb);
+	}
+
 }
