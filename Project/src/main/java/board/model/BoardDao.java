@@ -38,4 +38,18 @@ public class BoardDao {
 		int cnt = sqlSessionTemplate.insert(namespace + ".insertBoard", boardBean);
 		return cnt;
 	}
+
+	public BoardBean getBoardByNum(int board_number) {
+		BoardBean boardBean = sqlSessionTemplate.selectOne(namespace + ".getBoardByNum", board_number);
+		return boardBean;
+	}
+
+	public void updateBoard(BoardBean boardBean) {
+		sqlSessionTemplate.update(namespace + ".updateBoard", boardBean);
+	}
+
+	public void deleteBoard(int board_number) {
+		sqlSessionTemplate.delete(namespace + ".deleteBoard", board_number);
+	}
+
 }

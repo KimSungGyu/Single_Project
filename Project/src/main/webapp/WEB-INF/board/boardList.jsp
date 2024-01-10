@@ -34,7 +34,9 @@
   <thead>
     <tr>
       <th scope="col">번호</th>
-      <th scope="col" width="30%">제목</th>
+      <th scope="col" width="30%">
+	     제목
+      </th>
       <th scope="col">작성자</th>
       <th scope="col">작성일</th>
       <th width="5%">
@@ -54,7 +56,9 @@
 	  <tbody>
 	    <tr>
 	      <th>${list.board_number}</th>
-	      <td>${list.title}</td>
+	      <td>
+	      	<a href="detail.board?board_number=${list.board_number}">${list.title}</a>
+	      </td>
 	      <td>${list.member_id}</td>
 	      <td><fmt:formatDate value="${list.write_date}" pattern="yyyy-MM-dd"/></td>
 	    </tr>

@@ -28,4 +28,16 @@
 		insert into board
 		values(board_seq.nextval, #{board_category}, #{title}, #{content}, #{write_date}, #{member_id})
 	</insert>
+	
+	<select id="getBoardByNum" resultType="board.model.BoardBean">
+		select * from board where board_number = #{board_number}
+	</select>
+	
+	<update id="updateBoard">
+		update board set board_category=#{board_category}, title=#{title}, content=#{content}, write_date=#{write_date} where board_number=#{board_number}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from board where board_number=#{board_number}
+	</delete>
 </mapper> 
