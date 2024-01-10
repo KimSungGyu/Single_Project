@@ -50,7 +50,7 @@
         <li class="active"><a href="view.main">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Gallery</a></li>
-        <li><a href="#">상품문의</a></li>
+        <li><a href="product.board">상품문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${empty loginInfo}">

@@ -6,9 +6,11 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="member.model.MemberBean" alias="MemberBean"/>
+		<typeAlias type="board.model.BoardBean" alias="BoardBean"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mybatis/member.xml"/>
+		<mapper resource="mybatis/board.xml"/>
 	</mappers>
 </configuration>
