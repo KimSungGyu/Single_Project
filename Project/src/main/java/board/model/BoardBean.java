@@ -2,6 +2,8 @@ package board.model;
 
 import java.sql.Timestamp;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BoardBean {
 	
 	private int board_number;

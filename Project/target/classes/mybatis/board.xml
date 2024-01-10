@@ -23,4 +23,9 @@
 		</if>
 		order by board_number desc
 	</select>
+	
+	<insert id="insertBoard">
+		insert into board
+		values(board_seq.nextval, #{board_category}, #{title}, #{content}, #{write_date}, #{member_id})
+	</insert>
 </mapper> 

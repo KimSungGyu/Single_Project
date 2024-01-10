@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../main/top.jsp" %>
-<%@ include file="../common/common.jsp" %>
 
 <style>
 	.mybutton {
@@ -21,7 +20,12 @@
 
 <script type="text/javascript">
 	function writeBoard(){
-		location.href="write.board";
+		if(${loginInfo == null}){
+			alert('로그인 후 이용하세요.');
+			location.href="login.member";
+		}else{
+			location.href="write.board";
+		}
 	}
 </script>
 

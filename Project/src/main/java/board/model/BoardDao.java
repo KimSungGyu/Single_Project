@@ -33,4 +33,9 @@ public class BoardDao {
 		
 		return lists;
 	}
+
+	public int insertBoard(BoardBean boardBean) {
+		int cnt = sqlSessionTemplate.insert(namespace + ".insertBoard", boardBean);
+		return cnt;
+	}
 }
