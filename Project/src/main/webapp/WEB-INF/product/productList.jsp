@@ -65,11 +65,11 @@
 </style>
 </head>
 <br>
-<table class="table table-bordered border-success" style="width: 800px; margin: auto;">
+<table class="table table-bordered border-success" style="width: 1000px; margin: auto;">
   <tr>
   	<th>번호</th>
-  	<th>카테고리</th>
   	<th>이미지</th>
+  	<th>카테고리</th>
   	<th>제목</th>
   	<th>출판사</th>
   	<th>수량</th>
@@ -88,8 +88,16 @@
 	  <c:forEach var="product" items="${productList}">
 		  <tr align="center" style="font: bold;">
 		  	<td>${product.pnum}</td>
+		  	<td>
+		  		<img src="<%=request.getContextPath()%>/resources/productImage/${product.pimage}" width="200">
+		  	</td>
 		  	<td>${product.pcategory}</td>
 		  	<td>${product.pname}</td>
+		  	<td>${product.publisher}</td>
+		  	<td>${product.pqty}</td>
+		  	<td>${product.price}</td>
+		  	<td>${product.summary}</td>
+		  	<td>${product.point}</td>
 		  </tr>
 	  </c:forEach>
   </c:if>

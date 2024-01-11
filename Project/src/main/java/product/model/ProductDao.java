@@ -1,5 +1,7 @@
 package product.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,5 +15,14 @@ public class ProductDao {
 	
 	public ProductDao() {
 		
+	}
+
+	public void insertProduct(ProductBean pb) {
+		sqlSessionTemplate.insert(namespace + ".insertProduct", pb);
+	}
+
+	public List<ProductBean> getAllProduct() {
+		List<ProductBean> lists = sqlSessionTemplate.selectList(namespace + ".getAllProduct");
+		return lists;
 	}
 }

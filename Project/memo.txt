@@ -1,12 +1,15 @@
 DROP TABLE member cascade constraints;
 DROP TABLE board cascade constraints;
 DROP TABLE category cascade constraints;
+DROP TABLE product cascade constraints;
 
 drop sequence board_seq;
 drop sequence category_seq;
+drop sequence product_seq;
 
 create sequence board_seq;
 create sequence category_seq;
+create sequence product_seq;
 
 CREATE TABLE member (
    member_id   varchar2(30)   PRIMARY KEY,
@@ -31,4 +34,16 @@ create table board(
 create table category(
 	category_number number primary key,
 	category_name varchar2(30)
+);
+
+create table product(
+	pnum number primary key,
+	pname varchar2(30),
+	pcategory varchar2(30),
+	publisher varchar2(50),
+	pimage varchar2(200) not null,
+	pqty number,
+	price number,
+	summary varchar2(600),
+	point number
 );
