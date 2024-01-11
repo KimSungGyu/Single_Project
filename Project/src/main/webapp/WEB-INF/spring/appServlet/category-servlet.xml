@@ -7,14 +7,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<mvc:annotation-driven /> <!-- 유효성검사 -->
-
+	<mvc:annotation-driven/>
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/main/"/>
-		<property name="suffix" value=".jsp"/>
+		<property name="prefix" value="/WEB-INF/category/" />
+		<property name="suffix" value=".jsp" />
 	</bean>
-
-	<context:component-scan base-package="main" />
-	<context:component-scan base-package="board" />
+	
 	<context:component-scan base-package="category" />
 </beans>

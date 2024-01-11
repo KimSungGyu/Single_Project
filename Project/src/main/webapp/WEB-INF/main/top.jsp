@@ -27,10 +27,20 @@
 	}
     
   </style>
+  <script type="text/javascript" src="resources/js/jquery.js"></script>
   <script type="text/javascript">
 	function goLogout(){
 		location.href="logout.jsp";
 	}
+	$(document).ready(function() {
+	  $('li a').each(function() {
+	    if ($(this).prop('href') == window.location.href) {
+	      $(this).parent('li').addClass('active');
+	    }
+	  });
+	});
+
+
   </script>
 </head>
 <body>
@@ -47,10 +57,17 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="view.main">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="product.board">상품문의</a></li>
+      	<c:if test="${loginInfo.member_id eq 'admin'}">
+	        <li><a href="view.main">Home</a></li>
+	        <li><a href="list.category">카테고리 관리</a></li>
+	        <li><a href="list.product">상품관리</a></li>
+	        <li><a href="product.board">회원관리</a></li>
+      	</c:if>
+      	<c:if test="${loginInfo.member_id ne 'admin'}">
+      		<li><a href="view.main">Home</a></li>
+	        <li><a href="#">상품</a></li>
+	        <li><a href="product.board">상품문의</a></li>
+	    </c:if>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${empty loginInfo}">

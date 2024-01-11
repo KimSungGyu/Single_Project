@@ -1,9 +1,12 @@
 DROP TABLE member cascade constraints;
 DROP TABLE board cascade constraints;
+DROP TABLE category cascade constraints;
 
 drop sequence board_seq;
+drop sequence category_seq;
 
 create sequence board_seq;
+create sequence category_seq;
 
 CREATE TABLE member (
    member_id   varchar2(30)   PRIMARY KEY,
@@ -23,4 +26,9 @@ create table board(
 	content varchar2(300) not null,
 	write_date Date,
 	member_id varchar2(30) not null
+);
+
+create table category(
+	category_number number primary key,
+	category_name varchar2(30)
 );
