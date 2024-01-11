@@ -11,4 +11,8 @@
 	<select id="getAllProduct" resultType="product.model.ProductBean">
 		select * from product order by pnum asc
 	</select>
+	
+	<delete id="deleteProduct">
+		delete from product where pnum=#{pnum}
+	</delete>
 </mapper> 

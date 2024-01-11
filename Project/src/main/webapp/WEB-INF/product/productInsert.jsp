@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품리스트</title>
+<title>상품등록</title>
 <style>
 	textarea{
 		resize: none;
@@ -82,11 +82,54 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
+	
+	function insertCheck(){
+		if(f.pname.value == ""){
+			alert('제목을 입력하세요.');
+			return false;
+		}
+		if(f.upload.value == ""){
+			alert('상품사진을 등록하세요.');
+			return false;
+		}
+		if(f.publisher.value == ""){
+			alert('출판사를 입력하세요.');
+			return false;
+		}
+		if(f.pqty.value == ""){
+			alert('수량을 입력하세요.');
+			return false;
+		}
+		if(isNaN(f.pqty.value)){
+			alert('수량을 숫자로 입력해주세요.');
+			return false;
+		}
+		if(f.price.value == ""){
+			alert('가격을 입력하세요.');
+			return false;
+		}
+		if(isNaN(f.price.value)){
+			alert('가격을 숫자로 입력해주세요.');
+			return false;
+		}
+		if(f.summary.value == ""){
+			alert('줄거리를 입력하세요.');
+			return false;
+		}
+		if(f.point.value == ""){
+			alert('지급포인트를 입력하세요.');
+			return false;
+		}
+		if(isNaN(f.point.value)){
+			alert('포인트를 숫자로 입력해주세요.');
+			return false;
+		}
+	}
 </script>
 
 </head>
 <br>
-<form:form commandName="productBean" action="insert.product" method="post" enctype="multipart/form-data">
+<form name="f" action="insert.product" method="post" onsubmit="return insertCheck()" enctype="multipart/form-data">
 	<table class="table table-bordered border-success" style="width: 600px; margin: auto;">
 	  <tr>
 	  	<th>카테고리</th>
@@ -108,7 +151,7 @@
 	  	<th>상품이미지</th>
 	  	<td>
 	  		<img id="imgThumb" src="https://static.nid.naver.com/images/web/user/default.png" width="150"><hr>
-	  		<input type="file" class="form-control mb-3" id="upload" name="upload" value="${productBean.pimage}" style="border-color: black;" onchange="previewImage()">
+	  		<input type="file" class="form-control mb-3" id="upload" name="upload" style="border-color: black;" onchange="previewImage()">
 	  	</td>
 	  </tr>
 	  <tr>
@@ -150,5 +193,5 @@
 	  	</td>
 	  </tr>
 	</table>
-</form:form>
+</form>
 </html>

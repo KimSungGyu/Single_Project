@@ -63,6 +63,19 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     }
 </style>
+
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+<script type="text/javascript">
+	function deleteNum(){
+		var num = prompt("삭제할 번호를 입력하세요.", "");
+		if(num == "" || isNaN(num)){
+			alert('잘못 입력되었습니다.');
+		}else{
+			location.href="delete.product?pnum=" + num;
+		}
+	}
+</script>
+
 </head>
 <br>
 <table class="table table-bordered border-success" style="width: 1000px; margin: auto;">

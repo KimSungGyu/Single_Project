@@ -25,4 +25,8 @@ public class ProductDao {
 		List<ProductBean> lists = sqlSessionTemplate.selectList(namespace + ".getAllProduct");
 		return lists;
 	}
+
+	public void deleteProduct(int pnum) {
+		sqlSessionTemplate.delete(namespace + ".deleteProduct", pnum);
+	}
 }

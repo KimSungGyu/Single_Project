@@ -63,7 +63,7 @@
 <script type="text/javascript">
 	function deleteNum(){
 		var num = prompt("삭제할 번호를 입력하세요.", "");
-		if(num == ""){
+		if(num == "" || isNaN(num)){
 			alert('잘못 입력되었습니다.');
 		}else{
 			location.href="delete.category?category_number=" + num;
